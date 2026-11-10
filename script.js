@@ -4,8 +4,8 @@ function calcularMedia() {
     let n3 = parseFloat(document.getElementById("n3").value)
     let nome = document.getElementById("nomeAluno").value
 
-    media = (n1 + n2 + n3 ) / 3
-    
+    media = (n1 + n2 + n3) / 3
+
     if (media >= 7) {
         document.getElementById("resultado").innerText = `nome: ${nome}, média: ${media} aprovado`
     } else if (media >= 5 && media < 7) {
@@ -21,7 +21,7 @@ function mostrarTabuada() {
 
     tabuada.innerHTML = ""
 
-    if (num < 1 || num > 20 ) {
+    if (num < 1 || num > 20) {
         tabuada.innerHTML = "Numéro invalído! dégite de 1 a 20"
     } else {
         for (let i = 1; i <= 10; i++) {
@@ -44,8 +44,36 @@ function calcularDesconto() {
     if (preco <= 0 || desconto < 0 || desconto > 100) {
         document.getElementById("resultadoDesconto").innerText = "valores inválidos!"
     } else {
-        document.getElementById("resultadoDesconto").innerText =
-            `economizado: R$ ${economia}, total a pagar: R$ ${total}`
+        document.getElementById("resultadoDesconto").innerText = `economizado: R$ ${economia}, total a pagar: R$ ${total}`
     }
 }
-    
+
+let alunos = [];
+
+function cadastrarAluno() {
+    let nome = document.getElementById("nome").value;
+    let idade = document.getElementById("idade").value;
+    let curso = document.getElementById("curso").value;
+    let matricula = document.getElementById("matricula").value;
+
+    let existe = alunos.some(aluno => aluno.matricula == matricula);
+
+    if (existe) {
+        document.getElementById("resultado2").innerText = "Matrícula já cadastrada!";
+    } else {
+        alunos.push({
+            nome: nome,
+            idade: idade,
+            curso: curso,
+            matricula: matricula
+        });
+
+        document.getElementById("resultado2").innerHTML = "";
+
+        alunos.forEach(function (aluno) {
+            document.getElementById("resultado2").innerHTML += `Nome: ${aluno.nome}, Idade: ${aluno.idade}, Curso: ${aluno.curso}, Matrícula: ${aluno.matricula}<br>`;
+        });
+
+        document.getElementById("resultado2").innerHTML += `<br>Total de alunos: ${alunos.length}`;
+    }
+}
