@@ -48,32 +48,63 @@ function calcularDesconto() {
     }
 }
 
-let alunos = [];
+let alunos = []
 
 function cadastrarAluno() {
-    let nome = document.getElementById("nome").value;
-    let idade = document.getElementById("idade").value;
-    let curso = document.getElementById("curso").value;
-    let matricula = document.getElementById("matricula").value;
+    let nome = document.getElementById("nome").value
+    let idade = document.getElementById("idade").value
+    let curso = document.getElementById("curso").value
+    let matricula = document.getElementById("matricula").value
 
-    let existe = alunos.some(aluno => aluno.matricula == matricula);
+    let existe = alunos.some(aluno => aluno.matricula == matricula)
 
     if (existe) {
-        document.getElementById("resultado2").innerText = "Matrícula já cadastrada!";
+        document.getElementById("resultado2").innerText = "Matrícula já cadastrada!"
     } else {
         alunos.push({
             nome: nome,
             idade: idade,
             curso: curso,
             matricula: matricula
-        });
+        })
 
-        document.getElementById("resultado2").innerHTML = "";
+        document.getElementById("resultado2").innerHTML = ""
 
         alunos.forEach(function (aluno) {
-            document.getElementById("resultado2").innerHTML += `Nome: ${aluno.nome}, Idade: ${aluno.idade}, Curso: ${aluno.curso}, Matrícula: ${aluno.matricula}<br>`;
+            document.getElementById("resultado2").innerHTML += `Nome: ${aluno.nome}, Idade: ${aluno.idade}, Curso: ${aluno.curso}, Matrícula: ${aluno.matricula}<br>`
+        })
+
+        document.getElementById("resultado2").innerHTML += `<br>Total de alunos: ${alunos.length}`
+    }
+}
+
+function pesquisarNome() {
+    let nome = document.getElementById("pesquisaNome").value.toLowerCase()
+
+    let aluno = alunos.find(a => a.nome.toLowerCase() == nome)
+
+    if (aluno) {
+        document.getElementById("resultadoPesquisa").innerText =
+            `Nome: ${aluno.nome}, Curso: ${aluno.curso}, Idade: ${aluno.idade}, Matrícula: ${aluno.matricula}`
+    } else {
+        document.getElementById("resultadoPesquisa").innerText = "Aluno não encontrado!"
+    }
+}
+
+function filtrarCurso() {
+    let curso = document.getElementById("pesquisaCurso").value.toLowerCase()
+
+    let resultado = alunos.filter(a => a.curso.toLowerCase() == curso)
+
+    document.getElementById("resultadoPesquisa").innerHTML = ""
+
+    if (resultado.length == 0) {
+        document.getElementById("resultadoPesquisa").innerText = "Nenhum aluno encontrado!"
+    } else {
+        resultado.forEach(a => {
+            document.getElementById("resultadoPesquisa").innerHTML += `Nome: ${a.nome}, Curso: ${a.curso}<br>`
         });
 
-        document.getElementById("resultado2").innerHTML += `<br>Total de alunos: ${alunos.length}`;
+        document.getElementById("resultadoPesquisa").innerHTML += `<br>Total encontrado: ${resultado.length}`
     }
 }
